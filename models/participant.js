@@ -8,7 +8,7 @@ var schema = mongoose.Schema({
   chip: String
 });
 
-schema.statics.aggregateQuery = function(query, cb) {
+schema.statics.aggregateQuery = function (query, cb) {
   this.aggregate([
     {$match: query},
     {$lookup: {
@@ -17,19 +17,19 @@ schema.statics.aggregateQuery = function(query, cb) {
       foreignField: 'chip',
       as: 'laps'
     }},
-    {$first: {}}
+    {$first: {}},
     {$sort: {'laps.time': 1}}
-  ], function(err, aggregate) {
+  ], function (err, aggregate) {
     if (err) {
       return cb(err);
     }
-    aggregate = aggregate.map(function(data) {
+    aggregate = aggregate.map(function (data) {
       data.numlaps = Passing.getLaps(data.laps);
       data.lastPassing = data.numlaps ? data.laps[0].time : null;
       return data;
     });
     return cb(null, aggregate);
   });
-}
+};
 
 module.exports = mongoose.model('Participant', schema);

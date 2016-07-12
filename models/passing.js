@@ -9,9 +9,9 @@ var schema = mongoose.Schema({
   source: String
 });
 
-schema.statics.getLaps = function(passings) {
+schema.statics.getLaps = function (passings) {
   //TODO: account for checkpoints
   return passings.length;
-}
+};
 
 module.exports = mongoose.model('Passing', schema);

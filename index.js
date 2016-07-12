@@ -19,6 +19,6 @@ var scServer = require('./socketClusterServer')(httpServer);
 //Start Toolkit client
 
 //Start server
-httpServer.listen(port, function() {
+httpServer.listen(port, function () {
   console.log('Listening on port ' + port);
 });
