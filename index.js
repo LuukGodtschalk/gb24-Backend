@@ -7,6 +7,9 @@ var port = process.env.PORT || 8080;
 var connectServer = require('./connectServer')();
 var httpServer = require('http').createServer(connectServer);
 
+var serveStatic = require('serve-static');
+connectServer.use(serveStatic('www/', {maxAge: '1 hour'}));
+
 //bind socketClusterServer
 var scServer = require('./socketClusterServer')(httpServer);
 

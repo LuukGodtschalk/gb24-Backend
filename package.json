@@ -14,7 +14,8 @@
     "q": "^1.4.1",
     "socketcluster-server": "~4.2.8",
     "connect": "~3.4.1",
-    "morgan": "~1.7.0"
+    "morgan": "~1.7.0",
+    "serve-static": "~1.11.1"
   },
   "devDependencies": {
     "should": "^8.3.0",
