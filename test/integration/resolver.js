@@ -9,7 +9,11 @@ describe('resolver', function () {
 
   beforeEach(function (done) {
     ioClient = socketioClient('http://localhost:' + port);
-    ioClient.on('connect', done);
+    ioClient.once('connect', done);
+  });
+
+  afterEach(function () {
+    ioClient.disconnect();
   });
 
   function subscribe(ioClient, event) {

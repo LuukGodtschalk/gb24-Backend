@@ -69,7 +69,11 @@ describe('eventController', function () {
 
   beforeEach(function (done) {
     ioClient = socketioClient('http://localhost:' + port);
-    ioClient.on('connect', done);
+    ioClient.once('connect', done);
+  });
+
+  afterEach(function () {
+    ioClient.close();
   });
 
   it('allows clients to subscribe to events', function (done) {
@@ -81,7 +85,7 @@ describe('eventController', function () {
   });
 
   it('distributes updates', function (done) {
-    ioClient.on('update', function (update) {
+    ioClient.once('update', function (update) {
       update.event.should.equal('updateEvent');
       update.data.should.equal(resolve('updateEvent'));
       done();
@@ -98,7 +102,7 @@ describe('eventController', function () {
   it('allows clients to unsubscribe', function (done) {
     var eventName = 'unsubscribeEvent';
     subscribe(ioClient, eventName).then(function (ack) {
-      ioClient.on('update', function (update) {
+      ioClient.once('update', function (update) {
         throw new Error('Received update after unsubscribing');
       });
       return unsubscribe(ioClient, eventName);
