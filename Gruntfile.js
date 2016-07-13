@@ -14,7 +14,6 @@ module.exports = function (grunt) {
     },
     watch: {
       options: {
-        livereload: true,
         spawn: false,
         atBegin: true
       },
@@ -40,7 +39,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-mocha-test');
 
-  grunt.registerTask('default', ['jshint', 'jscs', 'mochaTest']);
+  grunt.registerTask('default', ['mochaTest']);
+  grunt.registerTask('check', ['jshint', 'jscs']);
   grunt.registerTask('dev', ['watch']);
 
 };
