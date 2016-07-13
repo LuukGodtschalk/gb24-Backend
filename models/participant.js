@@ -17,7 +17,6 @@ schema.statics.aggregateQuery = function (query, cb) {
       foreignField: 'chip',
       as: 'laps'
     }},
-    {$first: {}},
     {$sort: {'laps.time': 1}}
   ], function (err, aggregate) {
     if (err) {

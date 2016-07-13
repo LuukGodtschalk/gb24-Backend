@@ -2,7 +2,7 @@ var should = require('should');
 process.env.NODE_ENV = 'test';
 var lapdata = require('../models/db');
 
-describe.skip('models', function () {
+describe('models', function () {
   describe('Participant', function () {
     var Participant = require('../models/participant');
     before(function (done) {
