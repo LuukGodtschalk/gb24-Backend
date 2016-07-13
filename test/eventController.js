@@ -4,12 +4,19 @@ var socketio = require('socket.io');
 var socketioClient = require('socket.io-client');
 var Q = require('q');
 
-var port = 3489;
-var io = socketio();
-io.listen(port);
-var ioClient;
-
 describe('eventController', function () {
+
+  var port = 3489;
+  var io = socketio();
+  var ioClient;
+
+  before(function () {
+    io.listen(port);
+  });
+
+  after(function () {
+    io.close();
+  });
 
   function promiseResolver(event) {
     return Q.promise(function (resolve, reject) {
@@ -48,6 +55,18 @@ describe('eventController', function () {
     return deferred.promise;
   }
 
+  function unsubscribe(ioClient, event) {
+    var deferred = Q.defer();
+    ioClient.emit('unsubscribe', event, function (ack) {
+      if (ack.error) {
+        deferred.reject(new Error(ack.error));
+      } else {
+        deferred.resolve(ack);
+      }
+    });
+    return deferred.promise;
+  }
+
   beforeEach(function (done) {
     ioClient = socketioClient('http://localhost:' + port);
     ioClient.on('connect', done);
@@ -74,6 +93,22 @@ describe('eventController', function () {
 
   it('handles errors', function () {
     return subscribe(ioClient, 'invalid_event').should.be.rejectedWith('Invalid event');
+  });
+
+  it('allows clients to unsubscribe', function (done) {
+    var eventName = 'unsubscribeEvent';
+    subscribe(ioClient, eventName).then(function (ack) {
+      ioClient.on('update', function (update) {
+        throw new Error('Received update after unsubscribing');
+      });
+      return unsubscribe(ioClient, eventName);
+    }).then(function (ack) {
+      ack.event.should.equal(eventName);
+      instance.update(eventName);
+      return ack;
+    }).delay(100).then(function () {
+      done();
+    }).done();
   });
 
 });

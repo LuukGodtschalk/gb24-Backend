@@ -22,6 +22,14 @@ function EventController(io, resolver) {
         });
       });
     });
+
+    socket.on('unsubscribe', function (event, ack) {
+      socket.leave(event);
+      return ack({
+        event: event
+      });
+    });
+
   });
 
 }
