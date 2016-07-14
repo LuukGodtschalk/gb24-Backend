@@ -4,7 +4,7 @@ var Q = require('q');
 
 describe('resolver', function () {
 
-  var port = 8000;
+  var port = 80;
   var ioClient;
 
   beforeEach(function (done) {
