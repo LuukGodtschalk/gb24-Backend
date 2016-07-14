@@ -18,6 +18,8 @@ module.exports = function resolve(event) {
         }
         return resolve(docs[0]);
       });
+    } else if (parts[0] === 'rand') {
+      return resolve(Math.floor(Math.random() * 1000));
     } else {
       return reject(new Error('Invalid event'));
     }

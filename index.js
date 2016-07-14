@@ -1,5 +1,6 @@
 //require stuff
 var socketio = require('socket.io');
+var EventController = require('./eventController');
 
 //Open the db connection
 var lapdata = require('./models/db');
@@ -18,7 +19,11 @@ var scServer = require('./socketClusterServer')(httpServer);
 var io = socketio(httpServer);
 
 var resolver = require('./resolver');
-var eventController = require('./eventController')(io, resolver);
+var eventController = new EventController(io, resolver);
+
+setInterval(function () {
+  eventController.update('rand');
+}, 1000);
 
 //initialize csvReader and Toolkit client
 

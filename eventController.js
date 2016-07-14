@@ -32,6 +32,8 @@ function EventController(io, resolver) {
 
   });
 
+  return this;
+
 }
 
 EventController.prototype.update = function (event) {
