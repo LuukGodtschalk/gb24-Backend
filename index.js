@@ -12,9 +12,6 @@ var port = process.env.PORT || 8080;
 var expressServer = require('./expressServer')();
 var httpServer = require('http').createServer(expressServer);
 
-//bind socketClusterServer
-var scServer = require('./socketClusterServer')(httpServer);
-
 //bind socket.io server
 var io = socketio(httpServer);
 
