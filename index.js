@@ -5,17 +5,17 @@ var EventController = require('./eventController');
 //Open the db connection
 var lapdata = require('./models/db');
 
+var resolver = require('./resolver');
+
 //set options
 var port = process.env.PORT || 8080;
 
 //initialize web server
-var expressServer = require('./expressServer')();
+var expressServer = require('./expressServer')(resolver);
 var httpServer = require('http').createServer(expressServer);
 
 //bind socket.io server
 var io = socketio(httpServer);
-
-var resolver = require('./resolver');
 var eventController = new EventController(io, resolver);
 
 setInterval(function () {
