@@ -5,13 +5,13 @@ var lapdata = require('../models/db');
 describe('models', function () {
   describe('Participant', function () {
     var Participant = require('../models/participant');
-    before(function (done) {
-      Participant.remove({}, done);
+    after(function (done) {
+      Participant.remove({bib: 12345}, done);
     });
     describe('#create()', function () {
       it('creates a participant', function (done) {
         var p = {
-          bib: 123,
+          bib: 12345,
           name: 'Test user',
           category: 'Twelve',
           chip: 'DF234234'

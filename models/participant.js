@@ -5,6 +5,7 @@ var schema = mongoose.Schema({
   bib: Number,
   name: String,
   category: String,
+  categoryId: Number,
   chip: String
 });
 
