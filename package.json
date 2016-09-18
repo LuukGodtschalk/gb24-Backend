@@ -14,11 +14,14 @@
     "q": "^1.4.1",
     "express": "~4.14.0",
     "morgan": "~1.7.0",
-    "serve-static": "~1.11.1"
+    "socket.io": "^1.4.5",
+    "serve-static": "~1.11.1",
+    "body-parser": "~1.15.2",
+    "csv-parse": "~1.1.7",
+    "basic-auth": "~1.0.4"
   },
   "devDependencies": {
     "should": "^8.3.0",
-    "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.5",
     "mocha": "~2.5.3",
     "grunt": "~1.0.1",

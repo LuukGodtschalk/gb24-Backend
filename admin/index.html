@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      console.log('yes');
+      function upload() {
+        var file = document.getElementById('fileBox').files[0]; //Files[0] = 1st file
+        var reader = new FileReader();
+        reader.readAsText(file, 'UTF-8');
+        reader.onload = shipOff;
+        //reader.onloadstart = ...
+        //reader.onprogress = ... <-- Allows you to update a progress bar.
+        //reader.onabort = ...
+        //reader.onerror = ...
+        //reader.onloadend = ...
+
+
+        function shipOff(event) {
+          var result = event.target.result;
+          var fileName = document.getElementById('fileBox').files[0].name; //Should be 'picture.jpg'
+          var replace = $('#replace').is(':checked');
+          $.post('/admin/participants', { data: result, name: fileName, replace: replace }, function(data) {
+            $('#participantUploadStatus').text(data.operation + ' succesful (' + data.rows + ' rows)');
+          });
+        }
+        return false;
+      }
+    </script>
+  </head>
+  <body>
+    <form onsubmit="return upload()">
+      <input type="file" id="fileBox">
+      <input type="checkbox" id="replace">
+      <input type="submit" value="Upload CSV"><span id="participantUploadStatus"></span>
+    </form>
+
+  </body>
+</html>

@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+
+mongoose.Promise = require('q').Promise;
 var database = process.env.NODE_ENV === 'test' ? 'test' : 'lapdata';
 mongoose.connect('mongodb://localhost/' + database);
 

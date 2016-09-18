@@ -8,11 +8,12 @@ module.exports = function (resolver) {
 
   var app = express();
 
+  app.use('/admin', require('./admin'));
   app.use(morgan('dev'));
 
   app.use('/api', function (req, res) {
     var event = req.path;
-    if (event.indexOf('/') === 0){
+    if (event.indexOf('/') === 0) {
       event = event.substring(1);
     }
     Q.when(resolver(event), function (data) {
