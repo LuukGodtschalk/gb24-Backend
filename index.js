@@ -1,6 +1,7 @@
 //require stuff
 var socketio = require('socket.io');
 var EventController = require('./eventController');
+var log = require('./logger');
 
 //Open the db connection
 var lapdata = require('./models/db');
@@ -32,5 +33,5 @@ setInterval(function () {
 
 //Start server
 httpServer.listen(port, function () {
-  console.log('Listening on port ' + port);
+  log.info('Listening on port ' + port);
 });

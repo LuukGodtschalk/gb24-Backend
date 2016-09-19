@@ -1,5 +1,6 @@
 var Q = require('q');
 var Participant = require('./models/participant');
+var log = require('./logger');
 
 module.exports = function resolve(event) {
   return Q.promise(function (resolve, reject) {
