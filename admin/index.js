@@ -6,6 +6,7 @@ var Q = require('q');
 var basicAuth = require('basic-auth');
 var auth = require('./auth');
 var Participant = require('../models/participant');
+var Passing = require('../models/passing');
 
 var router = express.Router();
 
@@ -81,6 +82,27 @@ router.post('/participants', bodyParser.urlencoded({extended: false, limit: '1mb
 
     return deferred.promise;
   }
+});
+
+router.post('/passing', bodyParser.urlencoded({extended: false}), function(req, res) {
+  if (!req.body || !req.body.bib) {
+    return res.sendStatus(400).end();
+  }
+  Participant.findOne({bib: req.body.bib}).exec().then(function(doc) {
+    if (!doc || !doc.chip) {
+      throw new Error('No chip corresponding to bib ', req.body.bib);
+    }
+    return Passing.create({
+      chip: doc.chip,
+      time: new Date(),
+      source: 'Manual entry'
+    })
+  }).then(function() {
+    res.json({status: 'success'}).end();
+  }).catch(function(err) {
+    console.error(err)
+    res.sendStatus(400).end();
+  });
 });
 
 module.exports = router;

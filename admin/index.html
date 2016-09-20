@@ -25,6 +25,19 @@
         }
         return false;
       }
+
+      function addPassing() {
+        var data = {
+          bib: $('#bib').val(),
+          time: (new Date().toString())
+        };
+        //data = JSON.stringify(data);
+        console.log(data);
+        $.post('/admin/passing', data, function(data) {
+          $('#passingStatus').text(data);
+        }, 'json');
+        return false;
+      }
     </script>
   </head>
   <body>
@@ -32,6 +45,11 @@
       <input type="file" id="fileBox">
       <input type="checkbox" id="replace">
       <input type="submit" value="Upload CSV"><span id="participantUploadStatus"></span>
+    </form>
+
+    <form onsubmit="return addPassing()">
+      <input type="text" id="bib">
+      <input type="submit" value="Add passing"><span id="passingStatus"></span>
     </form>
 
   </body>
