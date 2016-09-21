@@ -33,7 +33,7 @@ module.exports = function resolve(event) {
           return reject(new Error(err));
         }
         for (var doc in docs) {
-          delete docs[doc]['laps'];
+          delete docs[doc].laps;
         }
         return resolve(docs);
       });

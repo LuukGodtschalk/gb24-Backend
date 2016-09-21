@@ -1,13 +1,17 @@
 var Q = require('q');
 var log = require('./logger');
 
-function EventController(io, resolver) {
+function EventController(resolver) {
 
+  this.resolve = resolver;
+  return this;
+}
+
+EventController.prototype.bindIo = function (io) {
   var self = this;
-  self.resolve = resolver;
   self.io = io;
 
-  io.on('connection', function (socket) {
+  return io.on('connection', function (socket) {
     var socketLog = log.child({socket_id: socket.id});
     socketLog.info({req: socket.request}, 'socket_connect');
     socket.on('subscribe', function (event, ack) {
@@ -35,12 +39,21 @@ function EventController(io, resolver) {
         event: event
       });
     });
-
   });
+};
 
-  return this;
-
-}
+EventController.prototype.getEvents = function () {
+  var events = [];
+  var rooms = this.io.sockets.adapter.rooms;
+  if (rooms) {
+    for (var room in rooms) {
+      if (!rooms[room].hasOwnProperty(room)) {
+        availableRooms.push(room);
+      }
+    }
+  }
+  return availableRooms;
+};
 
 EventController.prototype.update = function (event) {
   var self = this;

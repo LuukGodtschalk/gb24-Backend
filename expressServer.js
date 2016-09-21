@@ -5,7 +5,7 @@ var log = require('./logger');
 
 var webroot = '../gb24-Frontend/src/www/';
 
-module.exports = function (resolver) {
+module.exports = function (resolver, eventController) {
 
   var app = express();
 
@@ -14,7 +14,7 @@ module.exports = function (resolver) {
     log.info({req: req}, 'express_request');
     next();
   });
-  app.use('/admin', require('./admin'));
+  app.use('/admin', require('./admin')(eventController));
 
   app.use('/api', function (req, res) {
     var event = req.path;

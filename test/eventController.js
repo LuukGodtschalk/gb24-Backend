@@ -36,7 +36,8 @@ describe('eventController', function () {
 
   var resolve = directResolver;
   var EventController = require('../eventController');
-  var instance = new EventController(io, resolve);
+  var instance = new EventController(resolve);
+  instance.bindIo(io);
 
   function useResolver(resolver) {
     resolve = resolver;
