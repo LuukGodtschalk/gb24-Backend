@@ -14,7 +14,7 @@ function EventController(io, resolver) {
       Q.when(self.resolve(event), function (data) {
         if (data instanceof Error) throw data;
         socket.join(event);
-        socketLog.info({eventName: event}, 'socket_subscribe')
+        socketLog.info({eventName: event}, 'socket_subscribe');
         return ack({
           event: event,
           data: data

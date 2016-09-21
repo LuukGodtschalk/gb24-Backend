@@ -10,7 +10,7 @@ module.exports = function (resolver) {
   var app = express();
 
   app.use(morgan('combined', {stream: require('fs').createWriteStream('./access.log', {flags: 'a'})}));
-  app.use(function(req, res, next) {
+  app.use(function (req, res, next) {
     log.info({req: req}, 'express_request');
     next();
   });

@@ -1,16 +1,16 @@
 var bunyan = require('bunyan');
 
 function reqSerializer(req) {
-  if (!req || !req.connection){
+  if (!req || !req.connection) {
     return req;
   }
 
   return {
-      method: req.method,
-      url: req.url,
-      headers: req.headers,
-      remoteAddress: req.connection.remoteAddress,
-      remotePort: req.connection.remotePort
+    method: req.method,
+    url: req.url,
+    headers: req.headers,
+    remoteAddress: req.connection.remoteAddress,
+    remotePort: req.connection.remotePort
   };
 }
 
