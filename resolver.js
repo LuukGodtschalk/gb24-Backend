@@ -19,7 +19,7 @@ module.exports = function resolve(event) {
           return resolve(docs[0]);
         });
       } else {
-        Participant.aggregateQuery(query, function (err, docs) {
+        Participant.find({}).sort({bib: 1}).exec(function (err, docs) {
           if (err) {
             return reject(new Error(err));
           }
@@ -31,6 +31,9 @@ module.exports = function resolve(event) {
       Participant.aggregateQuery(query, function (err, docs) {
         if (err) {
           return reject(new Error(err));
+        }
+        for (var doc in docs) {
+          delete docs[doc]['laps'];
         }
         return resolve(docs);
       });
