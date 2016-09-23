@@ -32,7 +32,7 @@ setInterval(function () {
 var toolkitServer = toolkit();
 
 //initialize lapController and bind to csvReader and Toolkit client
-lapController(toolkitServer);
+lapController(toolkitServer, eventController);
 
 //bind lapController to webserver and model
 
