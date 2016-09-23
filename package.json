@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "toolkit-server": "file:../Toolkit-server",
     "mongoose": "^4.4.11",
     "q": "^1.4.1",
     "express": "~4.14.0",
