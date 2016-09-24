@@ -23,10 +23,12 @@ schema.statics.aggregateQuery = function (query, cb) {
       return cb(err);
     }
     aggregate = aggregate.map(function (data) {
-      data.numlaps = Passing.getLaps(data.laps);
-      data.laps = data.laps.sort(function (a, b) {
+      data.laps = data.laps.filter(function (passing) {
+        return passing.device === '2';
+      }).sort(function (a, b) {
         return a - b;
       });
+      data.numlaps = Passing.getLaps(data.laps);
       data.lastPassing = data.numlaps ? data.laps[data.laps.length-1].time : null;
       return data;
     }).sort(function (a, b) {
