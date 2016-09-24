@@ -26,7 +26,7 @@ schema.statics.aggregateQuery = function (query, cb) {
       data.laps = data.laps.filter(function (passing) {
         return passing.device === '2';
       }).sort(function (a, b) {
-        return a - b;
+        return a.time.valueOf() - b.time.valueOf();
       });
       data.numlaps = Passing.getLaps(data.laps);
       data.lastPassing = data.numlaps ? data.laps[data.laps.length-1].time : null;
