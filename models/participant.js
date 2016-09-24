@@ -24,7 +24,10 @@ schema.statics.aggregateQuery = function (query, cb) {
     }
     aggregate = aggregate.map(function (data) {
       data.numlaps = Passing.getLaps(data.laps);
-      data.lastPassing = data.numlaps ? data.laps[0].time : null;
+      data.laps = data.laps.sort(function (a, b) {
+        return a - b;
+      });
+      data.lastPassing = data.numlaps ? data.laps[data.laps.length-1].time : null;
       return data;
     }).sort(function (a, b) {
       if (a.numlaps < b.numlaps) {
